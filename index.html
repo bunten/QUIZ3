@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>セキュリティ診断</title>
+</head>
+<style>
+.container {
+  max-width: 500px;
+  margin: auto;        /* ← 中央に配置 */
+}
+
+label {
+  display: block;
+  text-align: left;
+  margin: 10px 0;
+  line-height: 1.5;
+}
+</style>
+
+<body>
+
+<div class="container">
+<h2>セキュリティ意識調査</h2>
+<h1>あなたの個人情報は大丈夫ですか？</h1>
+<p>以下16項目の質問で、あてはまるものに全てチェックを入れてください</p>
+
+
+<form id="quizForm">
+
+<!-- ★ここは自由に変更 -->
+<label>
+  <input type="checkbox">
+  質問① 友人へのメールやLINEに、他の人にはいえない秘密をつい書いちゃう
+</label>
+<label>
+  <input type="checkbox">
+  質問② 写真の位置情報？なんですかそれは
+</label>
+<label>
+  <input type="checkbox">
+  質問③ 旅行先ではついついSNSへの投稿が増えてしまう
+</label>
+<label><input type="checkbox"> 質問④SNSに子供や家族との写真をよくのせている</label><br>
+
+<label><input type="checkbox"> 質問⑤家族など特別に親しい人なら自分のスマホを勝手にさわられても平気だ</label><br>
+<label><input type="checkbox"> 質問⑥自分のSNSアカウントは、親しい人しか見ていないので何を書いても平気だ</label><br>
+<label><input type="checkbox"> 質問⑦以前、インターネットに他人の悪口や汚い言葉を書いたことがある</label><br>
+<label><input type="checkbox"> 質問⑧スマホやパソコンにパスワードロックをかけていない</label><br>
+
+<label><input type="checkbox"> 質問⑨パソコンのWebカメラを気にしたことは無い</label><br>
+<label><input type="checkbox"> 質問⑩銀行や通販サイトからのメールにあるリンクを内容を気にせずクリックしがち</label><br>
+<label><input type="checkbox"> 質問⑪ネットで掘り出し物を探すのが好きだ</label><br>
+<label><input type="checkbox"> 質問⑫スマホの充電を他人にたのむことがある</label><br>
+
+<label><input type="checkbox"> 質問⑬外出先で民間のFreeWifiをよく使う</label><br>
+<label><input type="checkbox"> 質問⑭自分のスマホやPCをネットオークションなどで高く売ろうと考えている</label><br>
+<label><input type="checkbox"> 質問⑮OSやアプリのアップデートは面倒だからやらない</label><br>
+<label><input type="checkbox"> 質問⑯メールアドレスは1つだけ。主にLINEなどのSNSメッセージを使う</label><br>
+
+</form>
+
+<button onclick="checkSecurity()">診断する</button>
+
+<h3 id="result"></h3>
+
+<script>
+function checkSecurity() {
+    const checks = document.querySelectorAll('input[type="checkbox"]');
+    let count = 0;
+
+    checks.forEach(c => {
+        if (c.checked) count++;
+    });
+
+    let message = "";
+
+    // ★ここが判定＋あなたの文章
+    if (count === 0) {
+        message = "当てはまる項目が0のあなたは「サイバーセキュリティマスター」です。\nサイバーセキュリティの基本が身についています。";　
+        color = "green";
+        const result = document.getElementById("result");
+result.innerText = message;
+result.style.color = color;
+    } else if (count >= 1 && count <= 5) {
+        message = "当てはまる項目が" + count + "のあなたは「セキュリティ優良者」です。\n基本はできていますが、少し注意が必要です。";
+         color = "blue";
+         const result = document.getElementById("result");
+result.innerText = message;
+result.style.color = color;
+    } else if (count >= 6 && count <= 11) {
+        message = "当てはまる項目が" + count + "のあなたは「セキュリティ要改善」です。\n危険な習慣があります。すぐに見直しましょう。";
+          color = "orange";
+          const result = document.getElementById("result");
+result.innerText = message;
+result.style.color = color;
+    } else {
+        message = "当てはまる項目が" + count + "のあなたは「セキュリティ危険状態」です。\n重大なリスクがあります。今すぐ対策を行いましょう！";
+        color = "red";
+        const result = document.getElementById("result");
+result.innerText = message;
+result.style.color = color;
+    }
+
+    document.getElementById("result").innerText = message;
+}
+</script>
+
+</body>
+</html>
